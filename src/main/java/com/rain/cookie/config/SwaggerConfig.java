@@ -31,7 +31,7 @@ public class SwaggerConfig {
                 //页面标题
                 .title("cookie项目API")
                 //创建人
-                .contact(new Contact("heyRainbow", "", ""))
+                .contact(new Contact("heyRainbow", "http://www.baidu.com", ""))
                 //版本号
                 .version("0.1")
                 //描述

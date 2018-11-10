@@ -2,6 +2,7 @@ package com.rain.cookie.controller;
 
 import com.rain.cookie.dto.UserDTO;
 import com.rain.cookie.server.UserServer;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/user")
+@Api(value="Index",tags={"初始化处理器"})
 public class Index {
     @Resource
     private UserServer userServer;
