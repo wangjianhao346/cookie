@@ -9,9 +9,11 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-public class projectConfig {
+@EnableSwagger2
+public class SwaggerConfig {
     //swagger2的配置文件，这里可以配置swagger2的一些基本的内容，比如扫描的包等等
     @Bean
     public Docket createRestApi() {
@@ -27,11 +29,11 @@ public class projectConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 //页面标题
-                .title("Spring Boot 测试使用 Swagger2 构建RESTful API")
+                .title("cookie项目API")
                 //创建人
-                .contact(new Contact("MarryFeng", "http://www.baidu.com", ""))
+                .contact(new Contact("heyRainbow", "", ""))
                 //版本号
-                .version("1.0")
+                .version("0.1")
                 //描述
                 .description("API 描述")
                 .build();
