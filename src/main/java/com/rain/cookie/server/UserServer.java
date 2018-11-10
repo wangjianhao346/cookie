@@ -13,9 +13,9 @@ public class UserServer {
     @Resource
     private UserMapper userMapper;
 
-    public User getUser(){
+    public User getUser(int id) {
         UserExample example = new UserExample();
-        example.createCriteria().andIdEqualTo(1);
+        example.createCriteria().andIdEqualTo(id);
         System.out.println(userMapper.selectByExample(example).get(0));
         return userMapper.selectByExample(example).get(0);
     }
