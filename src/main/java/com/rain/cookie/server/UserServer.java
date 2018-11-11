@@ -2,7 +2,7 @@ package com.rain.cookie.server;
 
 import com.rain.cookie.dao.UserMapper;
 import com.rain.cookie.dto.UserDTO;
-import com.rain.cookie.entry.UserExample;
+import com.rain.cookie.entity.UserExample;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 

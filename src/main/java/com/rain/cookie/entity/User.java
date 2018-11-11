@@ -1,4 +1,4 @@
-package com.rain.cookie.entry;
+package com.rain.cookie.entity;
 
 import java.util.Date;
 

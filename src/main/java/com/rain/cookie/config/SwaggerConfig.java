@@ -35,7 +35,7 @@ public class SwaggerConfig {
                 //版本号
                 .version("0.1")
                 //描述
-                .description("API 描述")
+                .description("关于API的描述")
                 .build();
     }
 }

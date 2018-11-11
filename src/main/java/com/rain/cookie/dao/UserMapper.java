@@ -1,7 +1,7 @@
 package com.rain.cookie.dao;
 
-import com.rain.cookie.entry.User;
-import com.rain.cookie.entry.UserExample;
+import com.rain.cookie.entity.User;
+import com.rain.cookie.entity.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
