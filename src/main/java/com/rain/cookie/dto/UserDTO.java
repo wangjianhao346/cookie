@@ -54,4 +54,14 @@ public class UserDTO implements Serializable {
         this.registertime = registertime;
     }
 
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", email='" + email + '\'' +
+                ", registertime=" + registertime +
+                '}';
+    }
 }
