@@ -28,14 +28,8 @@ public class SwaggerConfig {
     //构建 api文档的详细信息函数,注意这里的注解引用的是哪个
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                //页面标题
                 .title("cookie项目API")
-                //创建人
-                .contact(new Contact("heyRainbow", "http://www.baidu.com", ""))
-                //版本号
                 .version("0.1")
-                //描述
-                .description("关于API的描述")
                 .build();
     }
 }
