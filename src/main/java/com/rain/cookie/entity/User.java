@@ -15,6 +15,8 @@ public class User {
 
     private Date registertime;
 
+    private String delete;
+
     public Integer getId() {
         return id;
     }
@@ -63,15 +65,11 @@ public class User {
         this.registertime = registertime;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", pass='" + pass + '\'' +
-                ", image='" + image + '\'' +
-                ", email='" + email + '\'' +
-                ", registertime=" + registertime +
-                '}';
+    public String getDelete() {
+        return delete;
+    }
+
+    public void setDelete(String delete) {
+        this.delete = delete == null ? null : delete.trim();
     }
 }

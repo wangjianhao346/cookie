@@ -1,10 +1,13 @@
 package com.rain.cookie.controller;
 
 import com.rain.cookie.dto.UserDTO;
+import com.rain.cookie.entity.Result;
+import com.rain.cookie.entity.ResultBuilder;
 import com.rain.cookie.entity.User;
-import com.rain.cookie.server.UserServer;
+import com.rain.cookie.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,21 +17,25 @@ import javax.annotation.Resource;
 @Api(value = "Index", tags = {"初始化处理器"})
 public class Index {
     @Resource
-    private UserServer userServer;
+    private UserService userService;
 
     @ApiOperation("根据User查找用户信息")
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public UserDTO test(@RequestBody User user) {
-        System.out.println(userServer.getUser(user.getId()).toString());
+        System.out.println(userService.getUser(user.getId()).toString());
         System.out.println("test1");
-        return userServer.getUser(user.getId());
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(userService.getUser(user.getId()), userDTO);
+        return userDTO;
     }
 
     @ApiOperation("根据id查找用户信息")
-    @RequestMapping(value = "{id}", method = RequestMethod.POST)
-    public UserDTO test2(@PathVariable("id") int id) {
-        System.out.println(userServer.getUser(id).toString());
-        System.out.println("test2");
-        return userServer.getUser(id);
+    @PostMapping(value = "{id}")
+    public Result<UserDTO> test2(@PathVariable("id") int id) {
+        System.out.println(userService.getUser(id).toString());
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(userService.getUser(id), userDTO);
+        System.out.println(userDTO);
+        return ResultBuilder.success(userDTO);
     }
 }

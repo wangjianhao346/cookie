@@ -16,7 +16,7 @@
         </commentGenerator>
         <!-- mysql数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/db_blog?serverTimezone=UTC"
+                        connectionURL="jdbc:mysql://localhost:3306/db_cookie?serverTimezone=UTC"
                         userId="root"
                         password="123456">
         </jdbcConnection>
@@ -42,6 +42,9 @@
         <!-- 需要生成的实体类对应的表名，多个实体类复制多份该配置即可 -->
         <!-- 列出要生成代码的所有表，这里配置的是不生成Example文件 -->
         <table tableName="SYS_USER" domainObjectName="User"/>
+        <table tableName="SYS_ADMIN" domainObjectName="Admin"/>
+        <table tableName="SYS_ARTICLE" domainObjectName="Article"/>
+        <table tableName="SYS_MODULES" domainObjectName="Modules"/>
                <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
                <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
             <!--<property name="useActualColumnNames" value="false"/>-->

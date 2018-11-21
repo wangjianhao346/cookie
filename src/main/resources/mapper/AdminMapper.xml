@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rain.cookie.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.User">
-    <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="pass" jdbcType="VARCHAR" property="pass" />
-    <result column="image" jdbcType="VARCHAR" property="image" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="registertime" jdbcType="TIMESTAMP" property="registertime" />
-    <result column="delete" jdbcType="CHAR" property="delete" />
+<mapper namespace="com.rain.cookie.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.Admin">
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="AVATAR" jdbcType="VARCHAR" property="avatar" />
+    <result column="NOTES" jdbcType="VARCHAR" property="notes" />
+    <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, pass, image, email, registertime, delete
+    ID, USERNAME, PASSWORD, AVATAR, NOTES, IS_DELETE
   </sql>
-  <select id="selectByExample" parameterType="com.rain.cookie.entity.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.rain.cookie.entity.AdminExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from sys_user
+    from sys_admin
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,22 +84,203 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.UserExample">
-    delete from sys_user
+  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.AdminExample">
+    delete from sys_admin
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rain.cookie.entity.User">
-    insert into sys_user (id, name, pass, 
-      image, email, registertime, 
-      delete)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, 
-      #{image,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{registertime,jdbcType=TIMESTAMP}, 
-      #{delete,jdbcType=CHAR})
+  <insert id="insert" parameterType="com.rain.cookie.entity.Admin">
+    insert into sys_admin (ID, USERNAME, PASSWORD, 
+      AVATAR, NOTES, IS_DELETE
+      )
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{avatar,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{isDelete,jdbcType=CHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.rain.cookie.entity.User">
-    insert into sys_user
+  <insert id="insertSelective" parameterType="com.rain.cookie.entity.Admin">
+    insert into sys_admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="avatar != null">
+        AVATAR,
+      </if>
+      <if test="notes != null">
+        NOTES,
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rain.cookie.entity.AdminExample" resultType="java.lang.Long">
+    select count(*) from sys_admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_admin
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatar != null">
+        AVATAR = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null">
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        IS_DELETE = #{record.isDelete,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_admin
+    set ID = #{record.id,jdbcType=BIGINT},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      AVATAR = #{record.avatar,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      IS_DELETE = #{record.isDelete,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.Admin">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pass" jdbcType="VARCHAR" property="pass" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="registertime" jdbcType="TIMESTAMP" property="registertime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, pass, image, registertime
+  </sql>
+  <select id="selectByExample" parameterType="com.rain.cookie.entity.AdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.AdminExample">
+    delete from sys_admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rain.cookie.entity.Admin">
+    insert into sys_admin (id, name, pass, 
+      image, registertime)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR}, #{registertime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rain.cookie.entity.Admin">
+    insert into sys_admin
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -114,14 +294,8 @@
       <if test="image != null">
         image,
       </if>
-      <if test="email != null">
-        email,
-      </if>
       <if test="registertime != null">
         registertime,
-      </if>
-      <if test="delete != null">
-        delete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -137,25 +311,19 @@
       <if test="image != null">
         #{image,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
       <if test="registertime != null">
         #{registertime,jdbcType=TIMESTAMP},
       </if>
-      <if test="delete != null">
-        #{delete,jdbcType=CHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.rain.cookie.entity.UserExample" resultType="java.lang.Long">
-    select count(*) from sys_user
+  <select id="countByExample" parameterType="com.rain.cookie.entity.AdminExample" resultType="java.lang.Long">
+    select count(*) from sys_admin
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update sys_user
+    update sys_admin
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -169,14 +337,8 @@
       <if test="record.image != null">
         image = #{record.image,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
       <if test="record.registertime != null">
         registertime = #{record.registertime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.delete != null">
-        delete = #{record.delete,jdbcType=CHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -184,209 +346,12 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update sys_user
+    update sys_admin
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       pass = #{record.pass,jdbcType=VARCHAR},
       image = #{record.image,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      registertime = #{record.registertime,jdbcType=TIMESTAMP},
-      delete = #{record.delete,jdbcType=CHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.User">
-    <result column="ID" jdbcType="INTEGER" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="PASS" jdbcType="VARCHAR" property="pass" />
-    <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
-    <result column="IMAGE" jdbcType="VARCHAR" property="image" />
-    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
-    <result column="REGISTERTIME" jdbcType="TIMESTAMP" property="registertime" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    ID, NAME, PASS, NICKNAME, IMAGE, EMAIL, REGISTERTIME
-  </sql>
-  <select id="selectByExample" parameterType="com.rain.cookie.entity.UserExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from sys_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.UserExample">
-    delete from sys_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.rain.cookie.entity.User">
-    insert into sys_user (ID, NAME, PASS, 
-      NICKNAME, IMAGE, EMAIL, 
-      REGISTERTIME)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, 
-      #{nickname,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{registertime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.rain.cookie.entity.User">
-    insert into sys_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
-      <if test="name != null">
-        NAME,
-      </if>
-      <if test="pass != null">
-        PASS,
-      </if>
-      <if test="nickname != null">
-        NICKNAME,
-      </if>
-      <if test="image != null">
-        IMAGE,
-      </if>
-      <if test="email != null">
-        EMAIL,
-      </if>
-      <if test="registertime != null">
-        REGISTERTIME,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="pass != null">
-        #{pass,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="image != null">
-        #{image,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="registertime != null">
-        #{registertime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.rain.cookie.entity.UserExample" resultType="java.lang.Long">
-    select count(*) from sys_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update sys_user
-    <set>
-      <if test="record.id != null">
-        ID = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.name != null">
-        NAME = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.pass != null">
-        PASS = #{record.pass,jdbcType=VARCHAR},
-      </if>
-      <if test="record.nickname != null">
-        NICKNAME = #{record.nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.image != null">
-        IMAGE = #{record.image,jdbcType=VARCHAR},
-      </if>
-      <if test="record.email != null">
-        EMAIL = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.registertime != null">
-        REGISTERTIME = #{record.registertime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update sys_user
-    set ID = #{record.id,jdbcType=INTEGER},
-      NAME = #{record.name,jdbcType=VARCHAR},
-      PASS = #{record.pass,jdbcType=VARCHAR},
-      NICKNAME = #{record.nickname,jdbcType=VARCHAR},
-      IMAGE = #{record.image,jdbcType=VARCHAR},
-      EMAIL = #{record.email,jdbcType=VARCHAR},
-      REGISTERTIME = #{record.registertime,jdbcType=TIMESTAMP}
+      registertime = #{record.registertime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

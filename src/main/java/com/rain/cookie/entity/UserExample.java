@@ -504,6 +504,76 @@ public class UserExample {
             addCriterion("registertime not between", value1, value2, "registertime");
             return (Criteria) this;
         }
+
+        public Criteria andDeleteIsNull() {
+            addCriterion("delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteIsNotNull() {
+            addCriterion("delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteEqualTo(String value) {
+            addCriterion("delete =", value, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteNotEqualTo(String value) {
+            addCriterion("delete <>", value, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteGreaterThan(String value) {
+            addCriterion("delete >", value, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteGreaterThanOrEqualTo(String value) {
+            addCriterion("delete >=", value, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteLessThan(String value) {
+            addCriterion("delete <", value, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteLessThanOrEqualTo(String value) {
+            addCriterion("delete <=", value, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteLike(String value) {
+            addCriterion("delete like", value, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteNotLike(String value) {
+            addCriterion("delete not like", value, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteIn(List<String> values) {
+            addCriterion("delete in", values, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteNotIn(List<String> values) {
+            addCriterion("delete not in", values, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteBetween(String value1, String value2) {
+            addCriterion("delete between", value1, value2, "delete");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteNotBetween(String value1, String value2) {
+            addCriterion("delete not between", value1, value2, "delete");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
