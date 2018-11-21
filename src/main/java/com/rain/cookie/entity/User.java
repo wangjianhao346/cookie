@@ -9,13 +9,13 @@ public class User {
 
     private String pass;
 
+    private String nickname;
+
     private String image;
 
     private String email;
 
-    private Date registertime;
-
-    private String delete;
+    private Date registerTime;
 
     public Integer getId() {
         return id;
@@ -41,6 +41,14 @@ public class User {
         this.pass = pass == null ? null : pass.trim();
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
     public String getImage() {
         return image;
     }
@@ -57,19 +65,11 @@ public class User {
         this.email = email == null ? null : email.trim();
     }
 
-    public Date getRegistertime() {
-        return registertime;
+    public Date getRegisterTime() {
+        return registerTime;
     }
 
-    public void setRegistertime(Date registertime) {
-        this.registertime = registertime;
-    }
-
-    public String getDelete() {
-        return delete;
-    }
-
-    public void setDelete(String delete) {
-        this.delete = delete == null ? null : delete.trim();
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
     }
 }
