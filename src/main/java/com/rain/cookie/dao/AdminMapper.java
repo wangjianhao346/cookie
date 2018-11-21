@@ -2,8 +2,9 @@ package com.rain.cookie.dao;
 
 import com.rain.cookie.entity.Admin;
 import com.rain.cookie.entity.AdminExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AdminMapper {
     long countByExample(AdminExample example);

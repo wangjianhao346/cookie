@@ -2,8 +2,9 @@ package com.rain.cookie.dao;
 
 import com.rain.cookie.entity.Article;
 import com.rain.cookie.entity.ArticleExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ArticleMapper {
     long countByExample(ArticleExample example);
