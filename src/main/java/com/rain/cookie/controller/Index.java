@@ -22,8 +22,6 @@ public class Index {
     @ApiOperation("根据User查找用户信息")
     @PostMapping
     public UserDTO test(@RequestBody User user) {
-        System.out.println(userService.getUser(user.getId()).toString());
-        System.out.println("test1");
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(userService.getUser(user.getId()), userDTO);
         return userDTO;
@@ -32,10 +30,8 @@ public class Index {
     @ApiOperation("根据id查找用户信息")
     @PostMapping(value = "{id}")
     public Result<UserDTO> test2(@PathVariable("id") int id) {
-        System.out.println(userService.getUser(id).toString());
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(userService.getUser(id), userDTO);
-        System.out.println(userDTO);
         return ResultBuilder.success(userDTO);
     }
 }
