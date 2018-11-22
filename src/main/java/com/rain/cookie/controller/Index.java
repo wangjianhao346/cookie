@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/user")
-@Api(value = "Index", tags = {"初始化处理器"})
+@Api(tags = {"初始化处理器"})
 public class Index {
     @Resource
     private UserService userService;
