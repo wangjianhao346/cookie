@@ -2,13 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rain.cookie.dao.ArticleMapper">
   <resultMap id="BaseResultMap" type="com.rain.cookie.entity.Article">
-    <result column="PID" jdbcType="INTEGER" property="pid" />
+    <id column="PID" jdbcType="INTEGER" property="pid" />
     <result column="ARTICLE_TITLE" jdbcType="VARCHAR" property="articleTitle" />
     <result column="MODULE_ID" jdbcType="INTEGER" property="moduleId" />
     <result column="AUTHOR" jdbcType="VARCHAR" property="author" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
+    <result column="VIEWS" jdbcType="INTEGER" property="views" />
+    <result column="LIKE" jdbcType="INTEGER" property="like" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.rain.cookie.entity.Article">
     <result column="ARTICLE_CONTENT" jdbcType="LONGVARCHAR" property="articleContent" />
@@ -72,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    PID, ARTICLE_TITLE, MODULE_ID, AUTHOR, CREATE_TIME, UPDATE_TIME, IS_DELETE
+    PID, ARTICLE_TITLE, MODULE_ID, AUTHOR, CREATE_TIME, UPDATE_TIME, IS_DELETE, VIEWS, 
+    LIKE
   </sql>
   <sql id="Blob_Column_List">
     ARTICLE_CONTENT
@@ -107,6 +110,18 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_article
+    where PID = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_article
+    where PID = #{pid,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.rain.cookie.entity.ArticleExample">
     delete from sys_article
     <if test="_parameter != null">
@@ -116,10 +131,12 @@
   <insert id="insert" parameterType="com.rain.cookie.entity.Article">
     insert into sys_article (PID, ARTICLE_TITLE, MODULE_ID, 
       AUTHOR, CREATE_TIME, UPDATE_TIME, 
-      IS_DELETE, ARTICLE_CONTENT)
+      IS_DELETE, VIEWS, LIKE, 
+      ARTICLE_CONTENT)
     values (#{pid,jdbcType=INTEGER}, #{articleTitle,jdbcType=VARCHAR}, #{moduleId,jdbcType=INTEGER}, 
       #{author,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{isDelete,jdbcType=CHAR}, #{articleContent,jdbcType=LONGVARCHAR})
+      #{isDelete,jdbcType=CHAR}, #{views,jdbcType=INTEGER}, #{like,jdbcType=INTEGER}, 
+      #{articleContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.rain.cookie.entity.Article">
     insert into sys_article
@@ -144,6 +161,12 @@
       </if>
       <if test="isDelete != null">
         IS_DELETE,
+      </if>
+      <if test="views != null">
+        VIEWS,
+      </if>
+      <if test="like != null">
+        LIKE,
       </if>
       <if test="articleContent != null">
         ARTICLE_CONTENT,
@@ -170,6 +193,12 @@
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="views != null">
+        #{views,jdbcType=INTEGER},
+      </if>
+      <if test="like != null">
+        #{like,jdbcType=INTEGER},
       </if>
       <if test="articleContent != null">
         #{articleContent,jdbcType=LONGVARCHAR},
@@ -206,6 +235,12 @@
       <if test="record.isDelete != null">
         IS_DELETE = #{record.isDelete,jdbcType=CHAR},
       </if>
+      <if test="record.views != null">
+        VIEWS = #{record.views,jdbcType=INTEGER},
+      </if>
+      <if test="record.like != null">
+        LIKE = #{record.like,jdbcType=INTEGER},
+      </if>
       <if test="record.articleContent != null">
         ARTICLE_CONTENT = #{record.articleContent,jdbcType=LONGVARCHAR},
       </if>
@@ -223,6 +258,8 @@
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       IS_DELETE = #{record.isDelete,jdbcType=CHAR},
+      VIEWS = #{record.views,jdbcType=INTEGER},
+      LIKE = #{record.like,jdbcType=INTEGER},
       ARTICLE_CONTENT = #{record.articleContent,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -236,9 +273,69 @@
       AUTHOR = #{record.author,jdbcType=VARCHAR},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
-      IS_DELETE = #{record.isDelete,jdbcType=CHAR}
+      IS_DELETE = #{record.isDelete,jdbcType=CHAR},
+      VIEWS = #{record.views,jdbcType=INTEGER},
+      LIKE = #{record.like,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rain.cookie.entity.Article">
+    update sys_article
+    <set>
+      <if test="articleTitle != null">
+        ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null">
+        MODULE_ID = #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        AUTHOR = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE = #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="views != null">
+        VIEWS = #{views,jdbcType=INTEGER},
+      </if>
+      <if test="like != null">
+        LIKE = #{like,jdbcType=INTEGER},
+      </if>
+      <if test="articleContent != null">
+        ARTICLE_CONTENT = #{articleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where PID = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rain.cookie.entity.Article">
+    update sys_article
+    set ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
+      MODULE_ID = #{moduleId,jdbcType=INTEGER},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETE = #{isDelete,jdbcType=CHAR},
+      VIEWS = #{views,jdbcType=INTEGER},
+      LIKE = #{like,jdbcType=INTEGER},
+      ARTICLE_CONTENT = #{articleContent,jdbcType=LONGVARCHAR}
+    where PID = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rain.cookie.entity.Article">
+    update sys_article
+    set ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
+      MODULE_ID = #{moduleId,jdbcType=INTEGER},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETE = #{isDelete,jdbcType=CHAR},
+      VIEWS = #{views,jdbcType=INTEGER},
+      LIKE = #{like,jdbcType=INTEGER}
+    where PID = #{pid,jdbcType=INTEGER}
   </update>
 </mapper>

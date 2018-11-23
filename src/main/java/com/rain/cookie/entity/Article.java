@@ -17,6 +17,10 @@ public class Article {
 
     private String isDelete;
 
+    private Integer views;
+
+    private Integer like;
+
     private String articleContent;
 
     public Integer getPid() {
@@ -73,6 +77,22 @@ public class Article {
 
     public void setIsDelete(String isDelete) {
         this.isDelete = isDelete == null ? null : isDelete.trim();
+    }
+
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
+    }
+
+    public Integer getLike() {
+        return like;
+    }
+
+    public void setLike(Integer like) {
+        this.like = like;
     }
 
     public String getArticleContent() {

@@ -11,6 +11,8 @@ public interface ArticleMapper {
 
     int deleteByExample(ArticleExample example);
 
+    int deleteByPrimaryKey(Integer pid);
+
     int insert(Article record);
 
     int insertSelective(Article record);
@@ -19,9 +21,17 @@ public interface ArticleMapper {
 
     List<Article> selectByExample(ArticleExample example);
 
+    Article selectByPrimaryKey(Integer pid);
+
     int updateByExampleSelective(@Param("record") Article record, @Param("example") ArticleExample example);
 
     int updateByExampleWithBLOBs(@Param("record") Article record, @Param("example") ArticleExample example);
 
     int updateByExample(@Param("record") Article record, @Param("example") ArticleExample example);
+
+    int updateByPrimaryKeySelective(Article record);
+
+    int updateByPrimaryKeyWithBLOBs(Article record);
+
+    int updateByPrimaryKey(Article record);
 }

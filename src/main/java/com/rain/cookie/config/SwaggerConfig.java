@@ -29,7 +29,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("cookie项目API")
-                .version("0.1")
+                .version("0.2")
                 .build();
     }
 }

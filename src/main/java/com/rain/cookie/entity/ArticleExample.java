@@ -15,20 +15,20 @@ public class ArticleExample {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    public String getOrderByClause() {
-        return orderByClause;
-    }
-
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    public boolean isDistinct() {
-        return distinct;
+    public String getOrderByClause() {
+        return orderByClause;
     }
 
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
+    }
+
+    public boolean isDistinct() {
+        return distinct;
     }
 
     public List<Criteria> getOredCriteria() {
@@ -554,6 +554,126 @@ public class ArticleExample {
             addCriterion("IS_DELETE not between", value1, value2, "isDelete");
             return (Criteria) this;
         }
+
+        public Criteria andViewsIsNull() {
+            addCriterion("VIEWS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsIsNotNull() {
+            addCriterion("VIEWS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsEqualTo(Integer value) {
+            addCriterion("VIEWS =", value, "views");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsNotEqualTo(Integer value) {
+            addCriterion("VIEWS <>", value, "views");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsGreaterThan(Integer value) {
+            addCriterion("VIEWS >", value, "views");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("VIEWS >=", value, "views");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsLessThan(Integer value) {
+            addCriterion("VIEWS <", value, "views");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsLessThanOrEqualTo(Integer value) {
+            addCriterion("VIEWS <=", value, "views");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsIn(List<Integer> values) {
+            addCriterion("VIEWS in", values, "views");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsNotIn(List<Integer> values) {
+            addCriterion("VIEWS not in", values, "views");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsBetween(Integer value1, Integer value2) {
+            addCriterion("VIEWS between", value1, value2, "views");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewsNotBetween(Integer value1, Integer value2) {
+            addCriterion("VIEWS not between", value1, value2, "views");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeIsNull() {
+            addCriterion("LIKE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeIsNotNull() {
+            addCriterion("LIKE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeEqualTo(Integer value) {
+            addCriterion("LIKE =", value, "like");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNotEqualTo(Integer value) {
+            addCriterion("LIKE <>", value, "like");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeGreaterThan(Integer value) {
+            addCriterion("LIKE >", value, "like");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("LIKE >=", value, "like");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeLessThan(Integer value) {
+            addCriterion("LIKE <", value, "like");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeLessThanOrEqualTo(Integer value) {
+            addCriterion("LIKE <=", value, "like");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeIn(List<Integer> values) {
+            addCriterion("LIKE in", values, "like");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNotIn(List<Integer> values) {
+            addCriterion("LIKE not in", values, "like");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeBetween(Integer value1, Integer value2) {
+            addCriterion("LIKE between", value1, value2, "like");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNotBetween(Integer value1, Integer value2) {
+            addCriterion("LIKE not between", value1, value2, "like");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -579,6 +699,38 @@ public class ArticleExample {
         private boolean listValue;
 
         private String typeHandler;
+
+        public String getCondition() {
+            return condition;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
+        public Object getSecondValue() {
+            return secondValue;
+        }
+
+        public boolean isNoValue() {
+            return noValue;
+        }
+
+        public boolean isSingleValue() {
+            return singleValue;
+        }
+
+        public boolean isBetweenValue() {
+            return betweenValue;
+        }
+
+        public boolean isListValue() {
+            return listValue;
+        }
+
+        public String getTypeHandler() {
+            return typeHandler;
+        }
 
         protected Criterion(String condition) {
             super();
@@ -614,38 +766,6 @@ public class ArticleExample {
 
         protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
-        }
-
-        public String getCondition() {
-            return condition;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public Object getSecondValue() {
-            return secondValue;
-        }
-
-        public boolean isNoValue() {
-            return noValue;
-        }
-
-        public boolean isSingleValue() {
-            return singleValue;
-        }
-
-        public boolean isBetweenValue() {
-            return betweenValue;
-        }
-
-        public boolean isListValue() {
-            return listValue;
-        }
-
-        public String getTypeHandler() {
-            return typeHandler;
         }
     }
 }
