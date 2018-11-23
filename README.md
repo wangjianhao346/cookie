@@ -1,5 +1,5 @@
 # cookie
-对springboot+mybatis搭建网站的测试
+对springboot+mybatis搭建个人博客的测试
 
  // TODO
 ### 模块部分：
