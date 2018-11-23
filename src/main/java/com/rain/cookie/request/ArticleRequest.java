@@ -1,6 +1,6 @@
 package com.rain.cookie.request;
 
-public class ArticleRequest extends pageRequest {
+public class ArticleRequest extends PageRequest {
     private Integer pid;
 
     private Integer moduleId;

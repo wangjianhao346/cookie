@@ -1,6 +1,6 @@
 package com.rain.cookie.request;
 
-public class pageRequest {
+public class PageRequest {
     private Integer start;
 
     private Integer pageSize;
