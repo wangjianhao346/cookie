@@ -18,7 +18,7 @@ public class AdminController {
 
     @ApiOperation("修改管理员信息")
     @PostMapping
-    public Result updateAdminInfo(@RequestBody @Valid UpdateAdminRequest request){
+    public Result updateAdminInfo(@RequestBody @Valid UpdateAdminRequest request) {
         return null;
     }
 }

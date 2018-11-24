@@ -43,7 +43,7 @@ public class MainController {
 
     @ApiOperation("获取最近文章信息")
     @GetMapping(value = "recentArticle")
-    public List<ArticleDTO> getRecentArticles(){
+    public List<ArticleDTO> getRecentArticles() {
         return ArticleConverter.convert(articleService.getRecentArticles());
     }
 

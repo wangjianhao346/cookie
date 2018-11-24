@@ -13,7 +13,7 @@ public class ModulesService {
     @Resource
     private ModulesMapper modulesMapper;
 
-    public List<Modules> getModules(){
+    public List<Modules> getModules() {
         ModulesExample example = new ModulesExample();
         example.createCriteria();
         return modulesMapper.selectByExample(example);

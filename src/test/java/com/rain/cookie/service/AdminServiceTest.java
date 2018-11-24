@@ -11,7 +11,7 @@ public class AdminServiceTest extends SpringTest {
     private AdminService adminService;
 
     @Test
-    public void testGetAdmin(){
+    public void testGetAdmin() {
         System.out.println(adminService.getAdmin());
     }
 }

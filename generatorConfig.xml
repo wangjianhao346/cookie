@@ -45,8 +45,8 @@
         <table tableName="SYS_ADMIN" domainObjectName="Admin"/>
         <table tableName="SYS_ARTICLE" domainObjectName="Article"/>
         <table tableName="SYS_MODULES" domainObjectName="Modules"/>
-               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
-               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
-            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--<property name="useActualColumnNames" value="false"/>-->
     </context>
 </generatorConfiguration>

@@ -16,7 +16,7 @@ public class ArticleService {
     @Resource
     private ArticleMapper articleMapper;
 
-    public List<Article> getRecentArticles(){
+    public List<Article> getRecentArticles() {
         ArticleExample example = new ArticleExample();
         example.setDistinct(true);
         example.createCriteria();
@@ -27,7 +27,7 @@ public class ArticleService {
         return pageInfo.getList();
     }
 
-    public PageInfo<Article> getArticlesByModulesPid(ArticleRequest request){
+    public PageInfo<Article> getArticlesByModulesPid(ArticleRequest request) {
         ArticleExample example = new ArticleExample();
         example.createCriteria().andModuleIdEqualTo(request.getModuleId()).andIsDeleteEqualTo("N");
         PageHelper.startPage(request.getStart(), request.getPageSize());
