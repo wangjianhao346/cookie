@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rain.cookie.dao.ModulesMapper">
-  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.Modules">
-    <result column="MODULE_ID" jdbcType="INTEGER" property="moduleId" />
-    <result column="MODULE_NAME" jdbcType="VARCHAR" property="moduleName" />
-    <result column="ARTICLE_NUM" jdbcType="INTEGER" property="articleNum" />
+<mapper namespace="com.rain.cookie.dao.ArticleContentMapper">
+  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.ArticleContent">
+    <result column="ARTICLE_ID" jdbcType="INTEGER" property="articleId" />
     <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.rain.cookie.entity.ArticleContent">
+    <result column="CONTENT" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +67,20 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    MODULE_ID, MODULE_NAME, ARTICLE_NUM, IS_DELETE
+    ARTICLE_ID, IS_DELETE
   </sql>
-  <select id="selectByExample" parameterType="com.rain.cookie.entity.ModulesExample" resultMap="BaseResultMap">
+  <sql id="Blob_Column_List">
+    CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.rain.cookie.entity.ArticleContentExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from modules
+    ,
+    <include refid="Blob_Column_List" />
+    from article_content
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,80 +88,92 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.ModulesExample">
-    delete from modules
+  <select id="selectByExample" parameterType="com.rain.cookie.entity.ArticleContentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from article_content
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.ArticleContentExample">
+    delete from article_content
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rain.cookie.entity.Modules">
-    insert into modules (MODULE_ID, MODULE_NAME, ARTICLE_NUM, 
-      IS_DELETE)
-    values (#{moduleId,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{articleNum,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=CHAR})
+  <insert id="insert" parameterType="com.rain.cookie.entity.ArticleContent">
+    insert into article_content (ARTICLE_ID, IS_DELETE, CONTENT
+      )
+    values (#{articleId,jdbcType=INTEGER}, #{isDelete,jdbcType=CHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.rain.cookie.entity.Modules">
-    insert into modules
+  <insert id="insertSelective" parameterType="com.rain.cookie.entity.ArticleContent">
+    insert into article_content
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="moduleId != null">
-        MODULE_ID,
-      </if>
-      <if test="moduleName != null">
-        MODULE_NAME,
-      </if>
-      <if test="articleNum != null">
-        ARTICLE_NUM,
+      <if test="articleId != null">
+        ARTICLE_ID,
       </if>
       <if test="isDelete != null">
         IS_DELETE,
       </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="moduleId != null">
-        #{moduleId,jdbcType=INTEGER},
-      </if>
-      <if test="moduleName != null">
-        #{moduleName,jdbcType=VARCHAR},
-      </if>
-      <if test="articleNum != null">
-        #{articleNum,jdbcType=INTEGER},
+      <if test="articleId != null">
+        #{articleId,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=CHAR},
       </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.rain.cookie.entity.ModulesExample" resultType="java.lang.Long">
-    select count(*) from modules
+  <select id="countByExample" parameterType="com.rain.cookie.entity.ArticleContentExample" resultType="java.lang.Long">
+    select count(*) from article_content
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update modules
+    update article_content
     <set>
-      <if test="record.moduleId != null">
-        MODULE_ID = #{record.moduleId,jdbcType=INTEGER},
-      </if>
-      <if test="record.moduleName != null">
-        MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.articleNum != null">
-        ARTICLE_NUM = #{record.articleNum,jdbcType=INTEGER},
+      <if test="record.articleId != null">
+        ARTICLE_ID = #{record.articleId,jdbcType=INTEGER},
       </if>
       <if test="record.isDelete != null">
         IS_DELETE = #{record.isDelete,jdbcType=CHAR},
+      </if>
+      <if test="record.content != null">
+        CONTENT = #{record.content,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update article_content
+    set ARTICLE_ID = #{record.articleId,jdbcType=INTEGER},
+      IS_DELETE = #{record.isDelete,jdbcType=CHAR},
+      CONTENT = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByExample" parameterType="map">
-    update modules
-    set MODULE_ID = #{record.moduleId,jdbcType=INTEGER},
-      MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
-      ARTICLE_NUM = #{record.articleNum,jdbcType=INTEGER},
+    update article_content
+    set ARTICLE_ID = #{record.articleId,jdbcType=INTEGER},
       IS_DELETE = #{record.isDelete,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

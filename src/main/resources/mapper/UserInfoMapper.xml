@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rain.cookie.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.User">
+<mapper namespace="com.rain.cookie.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.UserInfo">
     <result column="USER_ID" jdbcType="INTEGER" property="userId" />
-    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-    <result column="ROLE" jdbcType="INTEGER" property="role" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="AVATAR" jdbcType="VARCHAR" property="avatar" />
+    <result column="AGE" jdbcType="INTEGER" property="age" />
+    <result column="REGISTER_TIME" jdbcType="TIMESTAMP" property="registerTime" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="WE_CHART" jdbcType="VARCHAR" property="weChart" />
+    <result column="NOTES" jdbcType="VARCHAR" property="notes" />
     <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -67,15 +72,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    USER_ID, USERNAME, PASSWORD, ROLE, IS_DELETE
+    USER_ID, SEX, AVATAR, AGE, REGISTER_TIME, EMAIL, PHONE, WE_CHART, NOTES, IS_DELETE
   </sql>
-  <select id="selectByExample" parameterType="com.rain.cookie.entity.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.rain.cookie.entity.UserInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from sys_user
+    from user_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -83,32 +88,51 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.UserExample">
-    delete from sys_user
+  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.UserInfoExample">
+    delete from user_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rain.cookie.entity.User">
-    insert into sys_user (USER_ID, USERNAME, PASSWORD, 
-      ROLE, IS_DELETE)
-    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{role,jdbcType=INTEGER}, #{isDelete,jdbcType=CHAR})
+  <insert id="insert" parameterType="com.rain.cookie.entity.UserInfo">
+    insert into user_info (USER_ID, SEX, AVATAR, 
+      AGE, REGISTER_TIME, EMAIL, 
+      PHONE, WE_CHART, NOTES, 
+      IS_DELETE)
+    values (#{userId,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{registerTime,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{weChart,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.rain.cookie.entity.User">
-    insert into sys_user
+  <insert id="insertSelective" parameterType="com.rain.cookie.entity.UserInfo">
+    insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         USER_ID,
       </if>
-      <if test="username != null">
-        USERNAME,
+      <if test="sex != null">
+        SEX,
       </if>
-      <if test="password != null">
-        PASSWORD,
+      <if test="avatar != null">
+        AVATAR,
       </if>
-      <if test="role != null">
-        ROLE,
+      <if test="age != null">
+        AGE,
+      </if>
+      <if test="registerTime != null">
+        REGISTER_TIME,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="weChart != null">
+        WE_CHART,
+      </if>
+      <if test="notes != null">
+        NOTES,
       </if>
       <if test="isDelete != null">
         IS_DELETE,
@@ -118,40 +142,70 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
       </if>
-      <if test="role != null">
-        #{role,jdbcType=INTEGER},
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null">
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="weChart != null">
+        #{weChart,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        #{notes,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.rain.cookie.entity.UserExample" resultType="java.lang.Long">
-    select count(*) from sys_user
+  <select id="countByExample" parameterType="com.rain.cookie.entity.UserInfoExample" resultType="java.lang.Long">
+    select count(*) from user_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update sys_user
+    update user_info
     <set>
       <if test="record.userId != null">
         USER_ID = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        USERNAME = #{record.username,jdbcType=VARCHAR},
+      <if test="record.sex != null">
+        SEX = #{record.sex,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
-        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      <if test="record.avatar != null">
+        AVATAR = #{record.avatar,jdbcType=VARCHAR},
       </if>
-      <if test="record.role != null">
-        ROLE = #{record.role,jdbcType=INTEGER},
+      <if test="record.age != null">
+        AGE = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.registerTime != null">
+        REGISTER_TIME = #{record.registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.email != null">
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        PHONE = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weChart != null">
+        WE_CHART = #{record.weChart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null">
+        NOTES = #{record.notes,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         IS_DELETE = #{record.isDelete,jdbcType=CHAR},
@@ -162,11 +216,16 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update sys_user
+    update user_info
     set USER_ID = #{record.userId,jdbcType=INTEGER},
-      USERNAME = #{record.username,jdbcType=VARCHAR},
-      PASSWORD = #{record.password,jdbcType=VARCHAR},
-      ROLE = #{record.role,jdbcType=INTEGER},
+      SEX = #{record.sex,jdbcType=VARCHAR},
+      AVATAR = #{record.avatar,jdbcType=VARCHAR},
+      AGE = #{record.age,jdbcType=INTEGER},
+      REGISTER_TIME = #{record.registerTime,jdbcType=TIMESTAMP},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      PHONE = #{record.phone,jdbcType=VARCHAR},
+      WE_CHART = #{record.weChart,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
       IS_DELETE = #{record.isDelete,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

@@ -2,9 +2,8 @@ package com.rain.cookie.dao;
 
 import com.rain.cookie.entity.User;
 import com.rain.cookie.entity.UserExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     long countByExample(UserExample example);

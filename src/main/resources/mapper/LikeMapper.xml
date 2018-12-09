@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rain.cookie.dao.ModulesMapper">
-  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.Modules">
-    <result column="MODULE_ID" jdbcType="INTEGER" property="moduleId" />
-    <result column="MODULE_NAME" jdbcType="VARCHAR" property="moduleName" />
-    <result column="ARTICLE_NUM" jdbcType="INTEGER" property="articleNum" />
+<mapper namespace="com.rain.cookie.dao.LikeMapper">
+  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.Like">
+    <result column="ARTICLE_ID" jdbcType="INTEGER" property="articleId" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    MODULE_ID, MODULE_NAME, ARTICLE_NUM, IS_DELETE
+    ARTICLE_ID, USER_ID, CREATE_TIME, IS_DELETE
   </sql>
-  <select id="selectByExample" parameterType="com.rain.cookie.entity.ModulesExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.rain.cookie.entity.LikeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from modules
+    from like
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,66 +82,66 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.ModulesExample">
-    delete from modules
+  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.LikeExample">
+    delete from like
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rain.cookie.entity.Modules">
-    insert into modules (MODULE_ID, MODULE_NAME, ARTICLE_NUM, 
+  <insert id="insert" parameterType="com.rain.cookie.entity.Like">
+    insert into like (ARTICLE_ID, USER_ID, CREATE_TIME, 
       IS_DELETE)
-    values (#{moduleId,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{articleNum,jdbcType=INTEGER}, 
+    values (#{articleId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{isDelete,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.rain.cookie.entity.Modules">
-    insert into modules
+  <insert id="insertSelective" parameterType="com.rain.cookie.entity.Like">
+    insert into like
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="moduleId != null">
-        MODULE_ID,
+      <if test="articleId != null">
+        ARTICLE_ID,
       </if>
-      <if test="moduleName != null">
-        MODULE_NAME,
+      <if test="userId != null">
+        USER_ID,
       </if>
-      <if test="articleNum != null">
-        ARTICLE_NUM,
+      <if test="createTime != null">
+        CREATE_TIME,
       </if>
       <if test="isDelete != null">
         IS_DELETE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="moduleId != null">
-        #{moduleId,jdbcType=INTEGER},
+      <if test="articleId != null">
+        #{articleId,jdbcType=INTEGER},
       </if>
-      <if test="moduleName != null">
-        #{moduleName,jdbcType=VARCHAR},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
-      <if test="articleNum != null">
-        #{articleNum,jdbcType=INTEGER},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.rain.cookie.entity.ModulesExample" resultType="java.lang.Long">
-    select count(*) from modules
+  <select id="countByExample" parameterType="com.rain.cookie.entity.LikeExample" resultType="java.lang.Long">
+    select count(*) from like
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update modules
+    update like
     <set>
-      <if test="record.moduleId != null">
-        MODULE_ID = #{record.moduleId,jdbcType=INTEGER},
+      <if test="record.articleId != null">
+        ARTICLE_ID = #{record.articleId,jdbcType=INTEGER},
       </if>
-      <if test="record.moduleName != null">
-        MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.articleNum != null">
-        ARTICLE_NUM = #{record.articleNum,jdbcType=INTEGER},
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.isDelete != null">
         IS_DELETE = #{record.isDelete,jdbcType=CHAR},
@@ -152,10 +152,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update modules
-    set MODULE_ID = #{record.moduleId,jdbcType=INTEGER},
-      MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
-      ARTICLE_NUM = #{record.articleNum,jdbcType=INTEGER},
+    update like
+    set ARTICLE_ID = #{record.articleId,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       IS_DELETE = #{record.isDelete,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

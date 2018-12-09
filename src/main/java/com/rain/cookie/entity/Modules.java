@@ -1,20 +1,20 @@
 package com.rain.cookie.entity;
 
 public class Modules {
-    private Integer pid;
+    private Integer moduleId;
 
     private String moduleName;
 
+    private Integer articleNum;
+
     private String isDelete;
 
-    private Integer articleAmount;
-
-    public Integer getPid() {
-        return pid;
+    public Integer getModuleId() {
+        return moduleId;
     }
 
-    public void setPid(Integer pid) {
-        this.pid = pid;
+    public void setModuleId(Integer moduleId) {
+        this.moduleId = moduleId;
     }
 
     public String getModuleName() {
@@ -25,19 +25,19 @@ public class Modules {
         this.moduleName = moduleName == null ? null : moduleName.trim();
     }
 
+    public Integer getArticleNum() {
+        return articleNum;
+    }
+
+    public void setArticleNum(Integer articleNum) {
+        this.articleNum = articleNum;
+    }
+
     public String getIsDelete() {
         return isDelete;
     }
 
     public void setIsDelete(String isDelete) {
         this.isDelete = isDelete == null ? null : isDelete.trim();
-    }
-
-    public Integer getArticleAmount() {
-        return articleAmount;
-    }
-
-    public void setArticleAmount(Integer articleAmount) {
-        this.articleAmount = articleAmount;
     }
 }

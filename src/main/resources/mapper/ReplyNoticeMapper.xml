@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rain.cookie.dao.ModulesMapper">
-  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.Modules">
-    <result column="MODULE_ID" jdbcType="INTEGER" property="moduleId" />
-    <result column="MODULE_NAME" jdbcType="VARCHAR" property="moduleName" />
-    <result column="ARTICLE_NUM" jdbcType="INTEGER" property="articleNum" />
+<mapper namespace="com.rain.cookie.dao.ReplyNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.ReplyNotice">
+    <result column="REPLY_ID" jdbcType="INTEGER" property="replyId" />
+    <result column="TO_USER_ID" jdbcType="INTEGER" property="toUserId" />
     <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    MODULE_ID, MODULE_NAME, ARTICLE_NUM, IS_DELETE
+    REPLY_ID, TO_USER_ID, IS_DELETE
   </sql>
-  <select id="selectByExample" parameterType="com.rain.cookie.entity.ModulesExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.rain.cookie.entity.ReplyNoticeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from modules
+    from reply_notice
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,66 +81,57 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.ModulesExample">
-    delete from modules
+  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.ReplyNoticeExample">
+    delete from reply_notice
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rain.cookie.entity.Modules">
-    insert into modules (MODULE_ID, MODULE_NAME, ARTICLE_NUM, 
-      IS_DELETE)
-    values (#{moduleId,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{articleNum,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=CHAR})
+  <insert id="insert" parameterType="com.rain.cookie.entity.ReplyNotice">
+    insert into reply_notice (REPLY_ID, TO_USER_ID, IS_DELETE
+      )
+    values (#{replyId,jdbcType=INTEGER}, #{toUserId,jdbcType=INTEGER}, #{isDelete,jdbcType=CHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.rain.cookie.entity.Modules">
-    insert into modules
+  <insert id="insertSelective" parameterType="com.rain.cookie.entity.ReplyNotice">
+    insert into reply_notice
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="moduleId != null">
-        MODULE_ID,
+      <if test="replyId != null">
+        REPLY_ID,
       </if>
-      <if test="moduleName != null">
-        MODULE_NAME,
-      </if>
-      <if test="articleNum != null">
-        ARTICLE_NUM,
+      <if test="toUserId != null">
+        TO_USER_ID,
       </if>
       <if test="isDelete != null">
         IS_DELETE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="moduleId != null">
-        #{moduleId,jdbcType=INTEGER},
+      <if test="replyId != null">
+        #{replyId,jdbcType=INTEGER},
       </if>
-      <if test="moduleName != null">
-        #{moduleName,jdbcType=VARCHAR},
-      </if>
-      <if test="articleNum != null">
-        #{articleNum,jdbcType=INTEGER},
+      <if test="toUserId != null">
+        #{toUserId,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.rain.cookie.entity.ModulesExample" resultType="java.lang.Long">
-    select count(*) from modules
+  <select id="countByExample" parameterType="com.rain.cookie.entity.ReplyNoticeExample" resultType="java.lang.Long">
+    select count(*) from reply_notice
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update modules
+    update reply_notice
     <set>
-      <if test="record.moduleId != null">
-        MODULE_ID = #{record.moduleId,jdbcType=INTEGER},
+      <if test="record.replyId != null">
+        REPLY_ID = #{record.replyId,jdbcType=INTEGER},
       </if>
-      <if test="record.moduleName != null">
-        MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.articleNum != null">
-        ARTICLE_NUM = #{record.articleNum,jdbcType=INTEGER},
+      <if test="record.toUserId != null">
+        TO_USER_ID = #{record.toUserId,jdbcType=INTEGER},
       </if>
       <if test="record.isDelete != null">
         IS_DELETE = #{record.isDelete,jdbcType=CHAR},
@@ -152,10 +142,9 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update modules
-    set MODULE_ID = #{record.moduleId,jdbcType=INTEGER},
-      MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
-      ARTICLE_NUM = #{record.articleNum,jdbcType=INTEGER},
+    update reply_notice
+    set REPLY_ID = #{record.replyId,jdbcType=INTEGER},
+      TO_USER_ID = #{record.toUserId,jdbcType=INTEGER},
       IS_DELETE = #{record.isDelete,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

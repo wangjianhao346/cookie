@@ -1,75 +1,53 @@
 package com.rain.cookie.entity;
 
-import java.util.Date;
-
 public class User {
-    private Integer id;
+    private Integer userId;
 
-    private String name;
+    private String username;
 
-    private String pass;
+    private String password;
 
-    private String nickname;
+    private Integer role;
 
-    private String image;
+    private String isDelete;
 
-    private String email;
-
-    private Date registerTime;
-
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass == null ? null : pass.trim();
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
-    public String getNickname() {
-        return nickname;
+    public Integer getRole() {
+        return role;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname == null ? null : nickname.trim();
+    public void setRole(Integer role) {
+        this.role = role;
     }
 
-    public String getImage() {
-        return image;
+    public String getIsDelete() {
+        return isDelete;
     }
 
-    public void setImage(String image) {
-        this.image = image == null ? null : image.trim();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public Date getRegisterTime() {
-        return registerTime;
-    }
-
-    public void setRegisterTime(Date registerTime) {
-        this.registerTime = registerTime;
+    public void setIsDelete(String isDelete) {
+        this.isDelete = isDelete == null ? null : isDelete.trim();
     }
 }

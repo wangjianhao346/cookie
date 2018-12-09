@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rain.cookie.dao.ModulesMapper">
-  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.Modules">
-    <result column="MODULE_ID" jdbcType="INTEGER" property="moduleId" />
-    <result column="MODULE_NAME" jdbcType="VARCHAR" property="moduleName" />
-    <result column="ARTICLE_NUM" jdbcType="INTEGER" property="articleNum" />
-    <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
+<mapper namespace="com.rain.cookie.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.Role">
+    <result column="PID" jdbcType="INTEGER" property="pid" />
+    <result column="ROLE" jdbcType="INTEGER" property="role" />
+    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    MODULE_ID, MODULE_NAME, ARTICLE_NUM, IS_DELETE
+    PID, ROLE, ROLE_NAME
   </sql>
-  <select id="selectByExample" parameterType="com.rain.cookie.entity.ModulesExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.rain.cookie.entity.RoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from modules
+    from sys_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,69 +81,60 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.ModulesExample">
-    delete from modules
+  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.RoleExample">
+    delete from sys_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rain.cookie.entity.Modules">
-    insert into modules (MODULE_ID, MODULE_NAME, ARTICLE_NUM, 
-      IS_DELETE)
-    values (#{moduleId,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{articleNum,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=CHAR})
+  <insert id="insert" parameterType="com.rain.cookie.entity.Role">
+    insert into sys_role (PID, ROLE, ROLE_NAME
+      )
+    values (#{pid,jdbcType=INTEGER}, #{role,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.rain.cookie.entity.Modules">
-    insert into modules
+  <insert id="insertSelective" parameterType="com.rain.cookie.entity.Role">
+    insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="moduleId != null">
-        MODULE_ID,
+      <if test="pid != null">
+        PID,
       </if>
-      <if test="moduleName != null">
-        MODULE_NAME,
+      <if test="role != null">
+        ROLE,
       </if>
-      <if test="articleNum != null">
-        ARTICLE_NUM,
-      </if>
-      <if test="isDelete != null">
-        IS_DELETE,
+      <if test="roleName != null">
+        ROLE_NAME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="moduleId != null">
-        #{moduleId,jdbcType=INTEGER},
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
       </if>
-      <if test="moduleName != null">
-        #{moduleName,jdbcType=VARCHAR},
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
       </if>
-      <if test="articleNum != null">
-        #{articleNum,jdbcType=INTEGER},
-      </if>
-      <if test="isDelete != null">
-        #{isDelete,jdbcType=CHAR},
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.rain.cookie.entity.ModulesExample" resultType="java.lang.Long">
-    select count(*) from modules
+  <select id="countByExample" parameterType="com.rain.cookie.entity.RoleExample" resultType="java.lang.Long">
+    select count(*) from sys_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update modules
+    update sys_role
     <set>
-      <if test="record.moduleId != null">
-        MODULE_ID = #{record.moduleId,jdbcType=INTEGER},
+      <if test="record.pid != null">
+        PID = #{record.pid,jdbcType=INTEGER},
       </if>
-      <if test="record.moduleName != null">
-        MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
+      <if test="record.role != null">
+        ROLE = #{record.role,jdbcType=INTEGER},
       </if>
-      <if test="record.articleNum != null">
-        ARTICLE_NUM = #{record.articleNum,jdbcType=INTEGER},
-      </if>
-      <if test="record.isDelete != null">
-        IS_DELETE = #{record.isDelete,jdbcType=CHAR},
+      <if test="record.roleName != null">
+        ROLE_NAME = #{record.roleName,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,11 +142,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update modules
-    set MODULE_ID = #{record.moduleId,jdbcType=INTEGER},
-      MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
-      ARTICLE_NUM = #{record.articleNum,jdbcType=INTEGER},
-      IS_DELETE = #{record.isDelete,jdbcType=CHAR}
+    update sys_role
+    set PID = #{record.pid,jdbcType=INTEGER},
+      ROLE = #{record.role,jdbcType=INTEGER},
+      ROLE_NAME = #{record.roleName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

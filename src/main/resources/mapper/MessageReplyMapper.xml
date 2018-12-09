@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rain.cookie.dao.ModulesMapper">
-  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.Modules">
-    <result column="MODULE_ID" jdbcType="INTEGER" property="moduleId" />
-    <result column="MODULE_NAME" jdbcType="VARCHAR" property="moduleName" />
-    <result column="ARTICLE_NUM" jdbcType="INTEGER" property="articleNum" />
+<mapper namespace="com.rain.cookie.dao.MessageReplyMapper">
+  <resultMap id="BaseResultMap" type="com.rain.cookie.entity.MessageReply">
+    <result column="NOTE_ID" jdbcType="INTEGER" property="noteId" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="TO_USER_ID" jdbcType="INTEGER" property="toUserId" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="IS_READ" jdbcType="CHAR" property="isRead" />
     <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    MODULE_ID, MODULE_NAME, ARTICLE_NUM, IS_DELETE
+    NOTE_ID, USER_ID, TO_USER_ID, CONTENT, IS_READ, IS_DELETE
   </sql>
-  <select id="selectByExample" parameterType="com.rain.cookie.entity.ModulesExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.rain.cookie.entity.MessageReplyExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from modules
+    from message_reply
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,66 +84,86 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.ModulesExample">
-    delete from modules
+  <delete id="deleteByExample" parameterType="com.rain.cookie.entity.MessageReplyExample">
+    delete from message_reply
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rain.cookie.entity.Modules">
-    insert into modules (MODULE_ID, MODULE_NAME, ARTICLE_NUM, 
-      IS_DELETE)
-    values (#{moduleId,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{articleNum,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=CHAR})
+  <insert id="insert" parameterType="com.rain.cookie.entity.MessageReply">
+    insert into message_reply (NOTE_ID, USER_ID, TO_USER_ID, 
+      CONTENT, IS_READ, IS_DELETE
+      )
+    values (#{noteId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{toUserId,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{isRead,jdbcType=CHAR}, #{isDelete,jdbcType=CHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.rain.cookie.entity.Modules">
-    insert into modules
+  <insert id="insertSelective" parameterType="com.rain.cookie.entity.MessageReply">
+    insert into message_reply
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="moduleId != null">
-        MODULE_ID,
+      <if test="noteId != null">
+        NOTE_ID,
       </if>
-      <if test="moduleName != null">
-        MODULE_NAME,
+      <if test="userId != null">
+        USER_ID,
       </if>
-      <if test="articleNum != null">
-        ARTICLE_NUM,
+      <if test="toUserId != null">
+        TO_USER_ID,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="isRead != null">
+        IS_READ,
       </if>
       <if test="isDelete != null">
         IS_DELETE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="moduleId != null">
-        #{moduleId,jdbcType=INTEGER},
+      <if test="noteId != null">
+        #{noteId,jdbcType=INTEGER},
       </if>
-      <if test="moduleName != null">
-        #{moduleName,jdbcType=VARCHAR},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
-      <if test="articleNum != null">
-        #{articleNum,jdbcType=INTEGER},
+      <if test="toUserId != null">
+        #{toUserId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=CHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.rain.cookie.entity.ModulesExample" resultType="java.lang.Long">
-    select count(*) from modules
+  <select id="countByExample" parameterType="com.rain.cookie.entity.MessageReplyExample" resultType="java.lang.Long">
+    select count(*) from message_reply
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update modules
+    update message_reply
     <set>
-      <if test="record.moduleId != null">
-        MODULE_ID = #{record.moduleId,jdbcType=INTEGER},
+      <if test="record.noteId != null">
+        NOTE_ID = #{record.noteId,jdbcType=INTEGER},
       </if>
-      <if test="record.moduleName != null">
-        MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.articleNum != null">
-        ARTICLE_NUM = #{record.articleNum,jdbcType=INTEGER},
+      <if test="record.toUserId != null">
+        TO_USER_ID = #{record.toUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isRead != null">
+        IS_READ = #{record.isRead,jdbcType=CHAR},
       </if>
       <if test="record.isDelete != null">
         IS_DELETE = #{record.isDelete,jdbcType=CHAR},
@@ -152,10 +174,12 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update modules
-    set MODULE_ID = #{record.moduleId,jdbcType=INTEGER},
-      MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
-      ARTICLE_NUM = #{record.articleNum,jdbcType=INTEGER},
+    update message_reply
+    set NOTE_ID = #{record.noteId,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      TO_USER_ID = #{record.toUserId,jdbcType=INTEGER},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      IS_READ = #{record.isRead,jdbcType=CHAR},
       IS_DELETE = #{record.isDelete,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
